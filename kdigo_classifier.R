@@ -22,6 +22,7 @@ kdigo_classifier <- function(df, date_format="%Y-%m-%d", basal="min", week = FAL
     #                       Standard: "min"
     #       week:           Iterate in a time-spam of a week (TRUE) or consider
     #                           all the data (FALSE)
+    # Usage:    classified <- kdigo_classifier(df, date_format="%Y-%m-%d", basal = "min", week = FALSE)
     
     require(tidyverse)
     #setting functions
