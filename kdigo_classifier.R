@@ -22,6 +22,7 @@ kdigo_classifier <- function(df, date_format="%Y-%m-%d", basal="min", week = FAL
     #                       Standard: "min"
     #       week:           Iterate in a time-spam of a week (TRUE) or consider
     #                           all the data (FALSE)
+    #
     # Usage:    classified <- kdigo_classifier(df, date_format="%Y-%m-%d", basal = "min", week = FALSE)
     
     require(tidyverse)
@@ -157,13 +158,14 @@ kdigo_classifier <- function(df, date_format="%Y-%m-%d", basal="min", week = FAL
     
     #setting code
     
-    
-    df_fixed <- df_fix(df)
+    suppressWarnings(
+    df_fixed <- df_fix(df))
+    suppressWarnings(
     kdigo <- df_fixed %>%
         group_by(pacient) %>% 
         mutate(diff = get_diff_date(date)) %>% 
         mutate(stat = get_status(cur_data(), basal = basal)) %>% 
-        distinct(pacient, .keep_all = TRUE)
+        distinct(pacient, .keep_all = TRUE))
     
     df_base <- data.frame(pacient = as.numeric(rownames(df)))
     final <- full_join(df_base, kdigo, by = "pacient")
